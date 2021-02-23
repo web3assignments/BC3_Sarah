@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
+    integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+  <title>Add Student</title>
+</head>
+
+<body>
+  <div class="container">
+    <form class="well form-horizontal" action=" " method="post" id="contact_form">
+      <fieldset>
+
+        <!-- Form Name -->
+        <legend>
+          <center>
+            <h2><b>Add Student</b></h2>
+          </center>
+        </legend><br>
+
+        <!-- Text input-->
+        <div class="form-group">
+          <label class="col-md-4 control-label">Address</label>
+          <div class="col-md-4 inputGroupContainer">
+            <div class="input-group">
+              <span class="input-group-addon"><i class="glyphicon"></i></span>
+              <input id="address" name="address" placeholder="Address" class="form-control" type="text">
+            </div>
+          </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+          <label class="col-md-4 control-label">Name</label>
+          <div class="col-md-4 inputGroupContainer">
+            <div class="input-group">
+              <span class="input-group-addon"><i class="glyphicon"></i></span>
+              <input id="name" name="name" placeholder="Name" class="form-control" type="text">
+            </div>
+          </div>
+        </div>
+
+        <!-- Text input-->
+        <div class="form-group">
+          <label class="col-md-4 control-label">Age</label>
+          <div class="col-md-4 inputGroupContainer">
+            <div class="input-group">
+              <span class="input-group-addon"><i class="glyphicon"></i></span>
+              <input id="age" name="age" placeholder="Age" class="form-control" type="text">
+            </div>
+          </div>
+        </div>
+
+        <!-- Button send -->
+        <div class="form-group">
+          <label class="col-md-4 control-label"></label>
+          <div class="col-md-4">
+            <button onclick="setStudent()" type="button" class="btn btn-warning">Send<span class="glyphicon glyphicon-send"></span></button>
+          </div>
+        </div>
+
+      </fieldset>
+    </form>
+  </div>
+
+  <script src="https://unpkg.com/web3@latest/dist/web3.min.js"></script>
+  <script src="./js/index.js"></script>
+</body>
+
+</html>
