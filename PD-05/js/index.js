@@ -128,3 +128,5 @@ async function setStudent() {
     console.log(send);
     log(`Student added: ${send}`);
 }
+
+window.addEventListener('DOMContentLoaded', f);
