@@ -22,22 +22,20 @@ contract Class {
     	string message
     );
     
-        function setStudent(address _address, string memory _name, uint8 _age) public {
-        // add error handling
-        if (!students[_address].exists)
-        {
-            Student storage student = students[_address];
+    function setStudent(address _address, string memory _name, uint8 _age) public {
+        require(
+            !students[_address].exists,
+            "This is not a valid address."
+            );
+        
+        Student storage student = students[_address];
             student.name = _name;
             student.age = _age;
             student.exists = true;
             studentAccounts.push(_address);
             // call event
             emit logAddStudent(block.timestamp, _name, _age, "Test");
-        }
-        else
-        {
-            
-        }
+            emit logAddStudent(block.timestamp, _name, _age, "Test");
     }
     
     function getStudent(address _address) view public returns(Student memory){
