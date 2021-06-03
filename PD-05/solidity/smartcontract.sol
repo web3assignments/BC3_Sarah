@@ -9,11 +9,11 @@ contract Class {
         uint8 age;
         bool exists;
     }
-    
+
     // add mapping
     mapping (address => Student) students;
     address[] private studentAccounts;
-    
+
     // add event
     event logAddStudent (
     	uint indexed date,
@@ -21,7 +21,7 @@ contract Class {
     	uint8 age,
     	string message
     );
-    
+
         function setStudent(address _address, string memory _name, uint8 _age) public {
         // add error handling
         if (!students[_address].exists)
@@ -36,14 +36,14 @@ contract Class {
         }
         else
         {
-            
+
         }
     }
-    
+
     function getStudent(address _address) view public returns(Student memory){
         return students[_address];
     }
-  
+
     function amountOfStudents() public view returns(uint count) {
         return studentAccounts.length;
     }
