@@ -126,4 +126,5 @@ async function setStudent() {
 	console.log(contract);
 	var send = await contract.methods.setStudent(address, name, age).send({ from: accounts[0] });
 	console.log(send);
+	log(`Following student added =${send}`);
 }
