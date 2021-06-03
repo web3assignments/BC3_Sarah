@@ -101,6 +101,10 @@ const abi = [
 var contract;
 var accounts;
 
+function log(logstr) {
+    document.getElementById("log").innerHTML += logstr + "\n";
+}
+
 // Function from web3examples. responsible for loading the provider.
 async function asyncloaded() {
     web3 = new Web3(Web3.givenProvider);
@@ -125,8 +129,6 @@ async function setStudent() {
     console.log(address, name, age);
     console.log(contract);
     var send = await contract.methods.setStudent(address, name, age).send({ from: accounts[0] });
-    console.log(send);
+    console.log('Test 1' + send);
     log(`Student added: ${send}`);
 }
-
-window.addEventListener('DOMContentLoaded', f);
