@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>IPFS Application</title>
+    <script src="https://bundle.run/buffer@5.2.1"></script>
+    <script src="https://unpkg.com/ipfs-http-client/dist/index.min.js"></script>
+    <script src="https://unpkg.com/ipfs-api@9.0.0/dist/index.js"></script>
+    <style>
+      body {
+        background-image: linear-gradient(137deg, #ffffff 25%, #f0eac5 25%, #f0eac5 50%, #ffffff 50%, #ffffff 75%, #f0eac5 75%, #f0eac5 100%);
+        background-size: 58.65px 54.69px;
+      }
+      h1 {
+        color: rgb(54, 54, 144);
+        font-family:Verdana, Geneva, Tahoma, sans-serif;
+        font-size: 300%;
+      }
+      p {
+        color: red;
+        font-family: courier;
+        font-size: 160%;
+        font-weight: bold;
+      }
+      .container {
+        display: grid;
+        grid-template-columns: 0.4fr 2.6fr 0.3fr;
+        grid-template-rows: 0.6fr 1.5fr 1.5fr 0.3fr;
+        gap: 0px 0px;
+        grid-auto-flow: row;
+        grid-template-areas:
+          '. Header .'
+          '. Add .'
+          '. Retrieve .'
+          '. . .';
+      }
+      .Header {
+        grid-area: Header;
+        background-color: #f0eac5;
+        border-style: double;
+        border-radius: 25px;
+      }
+      .Add {
+        grid-area: Add;
+      }
+      .Retrieve {
+        grid-area: Retrieve;
+      }
+      img {
+        width: 10%;
+        height: 10%;
+        object-fit: cover;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container"> 
+      <div class="Header">
+        <h1>
+          <center>
+            IPFS Application
+          </center>
+        </h1>
+      </div>
+      <!-- Add an image -->
+      <div class="Add">
+        <p>
+              Upload image   
+        </p>
+        <p>
+          <input type="file" name="photo" id="photo"></h10>
+          <button type="button" onclick="upload()">Send image</button>
+        </p>
+        <pre id="log"></pre>
+      </div>
+      <!-- Retrieve an image -->
+      <div class="Retrieve">
+        <p>
+          Retrieve image
+        </p>
+        <p>
+          <input id="hashImageId">
+          <button onclick="getImage()">
+            Show image
+          </button>
+        </p>
+        <div>
+          <p>
+            <img id="myimage"></img>
+          </p>
+        </div>
+      </div>
+    </div>
+    <script>
+
+    // using the infura node
+    const ipfs = window.IpfsHttpClient.create("https://ipfs.infura.io:5001");
+    function log(logstr) {
+      document.getElementById('log').innerHTML += logstr+"\n";
+    }
+
+    // uploading the image
+    async function upload() {
+        const reader = new FileReader();
+        reader.onloadend = async function () {
+            log("creating...");
+            const buf = buffer.Buffer(reader.result)
+            const result = await ipfs.add(buf).catch(log);
+            log(`${result.path}`);
+        }
+        const photo = document.getElementById("photo");
+        reader.readAsArrayBuffer(photo.files[0]);
+
+        let url = `https://ipfs.io/ipfs/${result[0].hash}`
+          console.log(`Url --> ${url}`)
+          document.getElementById("url").innerHTML= url
+          document.getElementById("url").href= url
+          document.getElementById("output").src = url
+    }
+
+    // set the image
+    async function setImage() {
+      input = document.getElementById('fileinput').value;
+      const result = await ipfs.add(input).catch(log);
+    }
+
+    // retrieve the image
+    async function getImage() {
+      var ui8arr = [];
+      var hash = document.getElementById('hashImageId').value;
+      for await (const result of ipfs.cat(hash))
+          ui8arr.push(result) // get all parts of the image
+      var blob = new Blob(ui8arr, { type: "image/jpeg" }); // convert to blob
+      var url = URL.createObjectURL(blob);
+      document.getElementById("myimage").src = url;
+    }
+
+    </script>
+  </body>
+</html>
