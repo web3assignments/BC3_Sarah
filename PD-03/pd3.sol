@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: MIT
 pragma experimental ABIEncoderV2;
-pragma solidity 0.7.4;
+pragma solidity 0.8.4;
 
 contract Class {
 
@@ -16,10 +16,9 @@ contract Class {
     
     // add event
     event logAddStudent (
-    	uint indexed date,
-    	string indexed name,
-    	uint8 age,
-    	string message
+    	address _address,
+    	string name,
+        uint8 age
     );
     
     function setStudent(address _address, string memory _name, uint8 _age) public {
@@ -34,16 +33,14 @@ contract Class {
             student.exists = true;
             studentAccounts.push(_address);
             // call event
-            emit logAddStudent(block.timestamp, _name, _age, "Test");
-            emit logAddStudent(block.timestamp, _name, _age, "Test");
+            emit logAddStudent(_address,_name, _age);
     }
     
-    function getStudent(address _address) view public returns(Student memory){
+    function getStudent(address _address) public returns(Student memory){
         return students[_address];
     }
   
     function amountOfStudents() public view returns(uint count) {
         return studentAccounts.length;
     }
-
 }
